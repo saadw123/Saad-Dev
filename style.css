@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Fira+Code:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #050505;
+    overflow-x: hidden;
+}
+
+/* Code Grid Background */
+.code-grid {
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(50px, 50px); }
+}
+
+/* Glassmorphism */
+.glass-card {
+    background: rgba(10, 20, 30, 0.3);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 255, 255, 0.1);
+}
+
+
+
+/* Terminal Styles */
+.terminal {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00ffff;
+    border-radius: 10px;
+    font-family: 'Fira Code', monospace;
+}
+
+.terminal-header {
+    background: rgba(0, 255, 255, 0.1);
+    padding: 10px;
+    border-bottom: 1px solid #00ffff;
+}
+
+.terminal-content {
+    min-height: 200px;
+    padding: 15px;
+}
+
+.terminal-input {
+    background: transparent;
+    border: none;
+    color: #00ffff;
+    font-family: 'Fira Code', monospace;
+    width: 100%;
+    outline: none;
+}
+
+/* Neon Pulse */
+.neon-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { filter: drop-shadow(0 0 5px #00ffff); }
+    50% { filter: drop-shadow(0 0 20px #00ffff); }
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    width: 0%;
+    transition: width 1s ease;
+}
+
+/* Floating Elements */
+.floating-element {
+    position: absolute;
+    color: rgba(0, 255, 255, 0.1);
+    font-family: 'Fira Code', monospace;
+    font-size: 24px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 9999;
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+
+/* تعديل الـ Code Grid Background */
+.code-grid {
+    background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    /* تأكد من أن الخلفية تبدأ من الصفر */
+    background-position: 0 0; 
+    animation: gridMove 20s linear infinite;
+}
+
+/* التعديل الجوهري هنا: نحرك موقع الخلفية وليس العنصر */
+@keyframes gridMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 50px 50px; }
+}
+
+
+/* --- أسلوب الجليتش الاحترافي (Advanced RGB Digital Glitch) --- */
+
+.glitch-text {
+    position: relative;
+    display: inline-block;
+}
+
+/* الطبقات الإضافية للـ RGB Split */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    /* لجعل النص يظهر فوق الأصلي بدقة */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* الطبقة الحمراء/السيان (Red/Cyan Shift) */
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1; /* لون ماجنتا قوي */
+    clip-path: inset(0 0 0 0);
+    /* استخدام steps(2) يعطي حركة "مقطوعة" رقمية بدلاً من حركة ناعمة */
+    animation: glitch-premium-1 3s infinite steps(2) alternate-reverse;
+}
+
+/* الطبقة الزرقاء/الخضراء (Blue/Green Shift) */
+.glitch-text::after {
+    left: -2px;
+    text-shadow: 2px 0 #00fff9; /* لون سيان فاقع */
+    clip-path: inset(0 0 0 0);
+    animation: glitch-premium-2 2s infinite steps(2) alternate-reverse;
+}
+
+/* أنيميشن الطبقة الأولى: تقطيع ذكي وسريع جداً ثم صمت */
+@keyframes glitch-premium-1 {
+    0%, 80% { clip-path: inset(0 0 0 0); opacity: 0; } /* اختفاء أغلب الوقت لراحة العين */
+    82% { clip-path: inset(40% 0 30% 0); opacity: 1; transform: scale(1.1); }
+    85% { clip-path: inset(10% 0 80% 0); opacity: 1; transform: translate(-5px); }
+    88% { clip-path: inset(70% 0 5% 0); opacity: 1; transform: translate(5px); }
+    90%, 100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+
+/* أنيميشن الطبقة الثانية: تداخل لوني مختلف */
+@keyframes glitch-premium-2 {
+    0%, 85% { clip-path: inset(0 0 0 0); opacity: 0; }
+    87% { clip-path: inset(20% 0 50% 0); opacity: 1; transform: translate(3px); }
+    90% { clip-path: inset(60% 0 10% 0); opacity: 1; transform: scale(0.9); }
+    92% { clip-path: inset(10% 0 70% 0); opacity: 1; transform: translate(-3px); }
+    95%, 100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+
+/* تأثير إضافي عند الـ Hover: وميض سريع جداً (Flicker) */
+.glitch-text:hover {
+    animation: flicker 0.1s infinite;
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
