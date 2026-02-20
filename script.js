@@ -151,3 +151,83 @@ function scrollToProjects() {
 function scrollToContact() {
     document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 }
+
+
+
+// تعديل الـ Parallax ليكون أخف في الموبايل
+const isMobile = window.innerWidth < 768;
+
+gsap.utils.toArray('.floating-element').forEach((el, i) => {
+    gsap.to(el, {
+        y: isMobile ? -50 * (i + 1) : -200 * (i + 1), // حركة أقل في الموبايل
+        ease: 'none',
+        scrollTrigger: {
+            trigger: 'body',
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true
+        }
+    });
+});
+
+
+
+function initMatrixBackground() {
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // جعل الكانفاس يملأ الشاشة بالكامل
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // الحروف المستخدمة (يمكنك إضافة حروف عربية أو رموز برمجية)
+    const characters = "0101010101SaadDev🔥<>/{}[];:+-*&%$#@!".split("");
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+
+    // مصفوفة لتتبع موقع السقوط لكل عمود
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
+    }
+
+    function draw() {
+        // رسم مستطيل شفاف جداً فوق الرسم القديم لخلق تأثير "الذيل" (Trail)
+        ctx.fillStyle = "rgba(5, 5, 5, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#00ffff"; // لون الكود (السماوي الخاص ببراندك)
+        ctx.font = fontSize + "px 'Fira Code'";
+
+        for (let i = 0; i < drops.length; i++) {
+            // اختيار حرف عشوائي
+            const text = characters[Math.floor(Math.random() * characters.length)];
+            
+            // رسم الحرف
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            // إعادة الحرف للأعلى إذا وصل لنهاية الشاشة أو بشكل عشوائي
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+
+            drops[i]++;
+        }
+    }
+
+    // تحديث الأبعاد عند تغيير حجم الشاشة
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
+
+    setInterval(draw, 33); // سرعة السقوط
+}
+
+// أضف الاستدعاء داخل window.onload القديم
+window.onload = () => {
+    setTimeout(typeEffect, 800);
+    initFloatingElements();
+    initProgressBars();
+    initMatrixBackground(); // <--- الاستدعاء الجديد هنا
+};
